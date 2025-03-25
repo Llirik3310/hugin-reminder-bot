@@ -2,7 +2,7 @@
 import logging
 import asyncio
 from aiogram import Bot, Dispatcher, types
-from aiogram.types import ParseMode
+from aiogram.enums import ParseMode
 from aiogram.utils import executor
 from aiogram.dispatcher.filters import Command
 from datetime import datetime, timedelta
