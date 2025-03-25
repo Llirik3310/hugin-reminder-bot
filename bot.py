@@ -9,7 +9,7 @@ from aiogram.enums import ParseMode
 from aiogram.types import Message
 from aiogram.fsm.storage.memory import MemoryStorage
 from aiogram.utils.markdown import hbold
-
+from aiogram.filters import Command
 import os
 
 API_TOKEN = os.getenv("API_TOKEN")
@@ -38,11 +38,13 @@ def save_reminders():
     with open("reminders.json", "w") as f:
         json.dump(reminders, f)
 
-@dp.message(commands=["start"])
+from aiogram.filters import Command
+
+@dp.message(Command("start"))
 async def cmd_start(message: Message):
     await message.answer("Привет, я Хугин 🐦\nЯ помогу тебе не забыть важное.\n\nКоманды:\n/add — добавить напоминание\n/list — список событий")
 
-@dp.message(commands=["add"])
+@dp.message(Command("add"))
 async def cmd_add(message: Message):
     await message.answer("Напиши напоминание в формате:\n`26.03.2025 17:00 Позвонить Ане`")
 
@@ -65,7 +67,7 @@ async def process_message(message: Message):
     else:
         await message.answer("Я не понял. Используй /add для создания напоминания.")
 
-@dp.message(commands=["list"])
+@dp.message(Command("list"))
 async def cmd_list(message: Message):
     user_reminders = [r for r in reminders if r["chat_id"] == message.chat.id]
     if not user_reminders:
