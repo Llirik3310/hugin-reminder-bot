@@ -16,7 +16,12 @@ API_TOKEN = os.getenv("API_TOKEN")
 
 logging.basicConfig(level=logging.INFO)
 
-bot = Bot(token=API_TOKEN, parse_mode=ParseMode.MARKDOWN)
+from aiogram.client.default import DefaultBotProperties
+
+bot = Bot(
+    token=API_TOKEN,
+    default=DefaultBotProperties(parse_mode=ParseMode.MARKDOWN)
+)
 dp = Dispatcher(storage=MemoryStorage())
 
 reminders = []
